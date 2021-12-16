@@ -132,21 +132,8 @@ h3 {
     text-shadow: 0px 0px 5px black;
 }
 
-@media screen and (min-width: 480px) {
-    #profile-picture {
-        width: 28vh;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    #profile-picture {
-        width: 100px;
-    }
-  }
-
 #profile-picture {
-    /* min-width: 100px;
-    max-width: 28vh; */
+    width: 28vh;
     border-radius: 50%;
     margin-bottom: 50px;
     filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
