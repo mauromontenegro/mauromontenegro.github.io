@@ -1,0 +1,221 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: large !important;
+    /* font-size:4vw !important; */
+    font-family: monospace;
+    background:
+        /* top, transparent color, faked with gradient */
+        linear-gradient(90deg, rgba(131, 58, 180, 0.75) 0%, rgba(253, 29, 29, 0.75) 50%, rgba(252, 176, 69, 0.75) 100%),
+        /* bottom, image */
+        url(bg-1.png);
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.navbar {
+    min-height: 100px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+    text-shadow: 0px 0px 3px white;
+}
+
+#intro {
+    min-height: 80vh;
+    width: 100%;
+    padding: 7%;
+    padding-top: 0px;
+    margin: 0px !important;
+    display: flex;
+    align-items: center;
+}
+
+.intro-container {
+    height: fit-content;
+    width: 100%;
+    color: white;
+    text-shadow: 1px 1px 5px black;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.15) 75%);
+    border-radius: 5px;
+    border-style: solid;
+    padding: 20px;
+    filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.3));
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
+}
+
+#projects {
+    margin: 0px !important;
+    height: fit-content;
+    width: 100%;
+    color: rgba(253, 29, 29, 1);
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-bottom: 1px;
+    padding-top: 5%;
+    margin-bottom: 0px;
+    /* background-color: white !important; */
+    background-image:
+        linear-gradient(180deg, #ffff 0%, #fdfbfb 25%, #ebedee 50%, #fdfbfb 75%, #ffff 100%),
+        linear-gradient(120deg, #ffff 0%, #fdfbfb 25%, #ebedee 50%, #fdfbfb 75%, #ffff 100%);
+    box-shadow: 5px 5px 100px black;
+}
+
+.custom-shape-divider-bottom-1639442598 {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1639442598 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 20px;
+    transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1639442598 .shape-fill {
+    fill: #FFFFFF;
+}
+
+#triangle-bottom {
+    /* filter: drop-shadow(5px 5px 50px rgba(0, 0, 0, 0.9)); */
+    background-color: #282d31;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
+
+.description {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+a {
+    color: rgba(253, 29, 29, 1) !important;
+    font-weight: bold;
+}
+
+#contact-links {
+    color:white !important;
+    text-decoration: none;
+}
+
+#contact-links:hover {
+    text-shadow: 0px 0px 3px white;
+}
+
+h3 {
+    color: white;
+    background-color: rgba(253, 29, 29, 0.7) !important;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#about {
+    height: fit-content;
+    width: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+}
+
+#profile-picture {
+    width: 28vh;
+    border-radius: 50%;
+    margin-bottom: 50px;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+}
+
+.carousel-section {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+#carousel-libreriaEgg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#carouselLibreriaEggIndicators {
+    max-width: 1005px;
+    max-height: 768px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+.close {
+    display: flex;
+    justify-content: right;
+}
+
+.btn-close {
+    color: white !important;
+    margin: 15px;
+    margin-bottom: 0px;
+}
+
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px black;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.project-cards {
+    padding: 10px;
+    margin: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: rgba(253, 29, 29, 1);
+}
+
+#carousel-sanjorge {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#carouselsanjorgeIndicators {
+    max-width: 1005px;
+    max-height: 768px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+iframe {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-style: solid !important;
+    border-radius: 5px;
+
+    padding: 0px !important;
+}
+
+.video-container {
+    padding: 20px !important;
+}
+
+#footer {
+    background-color: #282d31;
+    color: white;
+    text-align: center;
+    padding-bottom: 30px;
+}
