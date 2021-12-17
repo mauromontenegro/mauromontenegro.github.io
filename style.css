@@ -18,7 +18,7 @@ body {
 }
 
 .navbar {
-    min-height: 100px;
+    height: 100px;
 }
 
 .nav-link {
@@ -30,7 +30,7 @@ body {
 }
 
 #intro {
-    min-height: max-content;
+    height: max-content;
     width: 100%;
     padding: 7%;
     padding-top: 0px;
@@ -218,4 +218,10 @@ iframe {
     color: white;
     text-align: center;
     padding-bottom: 30px;
+    font-size: medium;
+}
+
+#footer-link {
+    color: white !important;
+    text-decoration: none;
 }
