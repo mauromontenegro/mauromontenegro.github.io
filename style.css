@@ -350,6 +350,11 @@ iframe {
     .contact {
         margin-bottom: 3%;
     }
+
+    .p-stretch {
+        text-align: left;
+        font-size: smaller;
+    }
 }
 
 /* Media Query for Laptops and Desktops and Tablets or Ipads portrait mode */
