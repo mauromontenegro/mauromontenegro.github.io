@@ -1,14 +1,5 @@
 /* General styles */
 
-html {
-    overflow: hidden;
-}
-
-body {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-}
-
 html,
 body {
     margin: 0;
@@ -18,20 +9,22 @@ body {
     font-family: monospace;
     background:
         /* top, transparent color, faked with gradient */
-        linear-gradient(90deg, rgba(131, 58, 180, 0.75) 0%, rgba(253, 29, 29, 0.75) 50%, rgba(252, 176, 69, 0.75) 100%),
+        /* linear-gradient(90deg, rgba(255, 178, 0, 0.75) 100%, rgba(255, 178, 0, 1) 0%), */
+        linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.85) 100%),
         /* bottom, image */
-        url(bg-1.png);
+        url(bg-2.png);
     background-position: top;
-    background-repeat: no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-attachment: fixed;
-    background-clip: border-box;
 }
 
 /* Navbar styles */
+
+nav {
+    margin: 0 !important;
+}
 
 .navbar {
     height: 70px;
@@ -105,7 +98,35 @@ body {
     padding-top: 0px !important;
 }
 
+.section-title {
+    border-style: solid;
+    border-width: 1px;
+    padding: 15px;
+    border-color: rgba(253, 29, 29, 0.3);
+}
+
 /* Intro section */
+
+.redtag {
+    color: #f5174ff6;
+}
+
+.greentag {
+    color: #96ff33;
+}
+
+.yellowtag {
+    color: #ffe448;
+}
+
+.p-stretch {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 0;
+    text-align: justify;
+}
 
 #intro {
     height: fit-content;
@@ -122,17 +143,31 @@ body {
     width: 100%;
     color: white;
     text-shadow: 1px 1px 5px black;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.15) 75%);
-    border-radius: 5px;
-    border-style: solid;
+    /* background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.15) 75%); */
+    /*     border-radius: 5px;
+    border-style: solid; */
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4);
+    padding-bottom: 0 !important;
+    /* box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.4); */
+}
+
+.stretch-column {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contact {
+    font-size: large;
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 #profile-picture {
-    width: 28vh;
+    width: 30vh;
     border-radius: 50%;
-    margin-bottom: 50px;
+    margin-bottom: 5%;
     filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
 }
 
@@ -143,6 +178,11 @@ body {
 
 #contact-links:hover {
     text-shadow: 0px 0px 3px white;
+}
+
+.icons {
+    width: 50px;
+    height: 50px;
 }
 
 h3 {
@@ -158,21 +198,23 @@ h3 {
     background-image:
         linear-gradient(180deg, #ffff 0%, #fdfbfb 25%, #ebedee 50%, #fdfbfb 75%, #ffff 100%),
         linear-gradient(120deg, #ffff 0%, #fdfbfb 25%, #ebedee 50%, #fdfbfb 75%, #ffff 100%);
-    box-shadow: 5px 5px 100px black;
 }
 
 /* Projects section */
 
-#projects {
+#projects, #skills {
     margin: 0px !important;
     height: fit-content;
     width: 100%;
     color: rgba(253, 29, 29, 1);
     padding-left: 7%;
     padding-right: 7%;
-    
-    padding-top: 5%;
+    padding-top: 1%;
     margin-bottom: 0px;
+}
+
+#skills {
+    padding-top: 5% !important;
 }
 
 .description {
@@ -274,7 +316,7 @@ iframe {
     padding-left: 7%;
     padding-right: 7%;
     padding-bottom: 1px;
-    padding-top: 2%;
+    padding-top: 1%;
     margin-bottom: 0px;
 
 }
@@ -295,4 +337,25 @@ iframe {
 #footer-link {
     color: white !important;
     text-decoration: none;
+}
+
+/* Media query */
+
+/* Media Query for Mobile Devices, low resolution Tablets, Ipads */
+@media (max-width: 767px) {
+    body {
+        background-attachment: scroll !important;
+    }
+
+    .contact {
+        margin-bottom: 3%;
+    }
+}
+
+/* Media Query for Laptops and Desktops and Tablets or Ipads portrait mode */
+@media (min-width: 768px) and (max-width: 1280px) {
+    body {
+        background-attachment: fixed !important;
+        background-repeat: no-repeat;
+    }
 }
