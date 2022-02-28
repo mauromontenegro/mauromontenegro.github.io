@@ -463,6 +463,11 @@ iframe {
 
 /* Media Query for Large Screens */
 @media only screen and (min-width: 1281px) {
+    body {
+        background-attachment: fixed !important;
+        background-repeat: no-repeat;
+    }
+
     .carousel-image {
         height: 70vh;
         width: 100vh;
