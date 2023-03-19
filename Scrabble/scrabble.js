@@ -333,6 +333,8 @@ function showFinalResults() {
       $('#player-card-' + player["id"]).find('.ribbon-winner').removeClass('d-none');
     }
   }
+  // Oculto botón para terminar juego
+  $('#end-game-btn').hide();
   // Cierro modal para puntos finales
   $("#end-game-modal").modal("hide");
 }
