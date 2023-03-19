@@ -1,0 +1,78 @@
+/* General styles */
+
+html,
+body {
+    font-size: large !important;
+    font-family: Tahoma, Verdana, sans-serif;
+    background:
+        /* top, transparent color, faked with gradient */
+        linear-gradient(90deg, rgba(68, 25, 0, 0.5) 0%, rgba(68, 25, 0, 0.35) 100%),
+        /* bottom, image */
+        url(bg-scrabble.jpg);
+    background-position: top;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.bg-card-gradient {
+    background-color: rgba(255,241,213,1);
+    /*background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(118,9,121,1) 35%, rgba(102,0,255,1) 100%);*/
+}
+
+.bg-modal {
+    background-color: rgba(255,241,213,1);
+}
+
+.bg-brown {
+    background-color: rgb(64 30 0);
+}
+
+.btn-brown {
+    background-color: rgb(64 30 0);
+    color: white;
+}
+
+.border-brown {
+    border-color: rgb(64 30 0)!important;
+}
+
+.ribbon-lg {
+    --tor-ribbon-size: 4em;
+}
+
+.ribbon-corner.ribbon-fold {
+    --tor-ribbon-polygon: polygon(0% 100%, 50% calc(100% - (var(--tor-ribbon-size) + 1em)), 100% 100%, 100% calc(100% + 0.5em), 0% calc(100% + 0.5em));
+    margin: -0.34em;
+}
+
+.ribbon-corner {
+    --tor-ribbon-size: 3em;
+    --tor-ribbon-rotate: 45deg;
+    --tor-ribbon-translateX: 50%;
+    --tor-ribbon-translateY: calc((var(--tor-ribbon-size) + 1em) - 100%);
+    --tor-ribbon-origin: 100% 0%;
+    --tor-ribbon-polygon: polygon(0% 100%, 50% calc(100% - (var(--tor-ribbon-size) + 1em)), 100% 100%);
+}
+
+.ribbon-corner {
+    background-color: #1f44ff;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    -webkit-clip-path: var(--tor-ribbon-polygon);
+    clip-path: var(--tor-ribbon-polygon);
+    transform: rotate(var(--tor-ribbon-rotate)) translateY(var(--tor-ribbon-translateY)) translateX(var(--tor-ribbon-translateX)) !important;
+    transform-origin: var(--tor-ribbon-origin) !important;
+    width: calc( (var(--tor-ribbon-size) + 1em) * 2);
+    height: 2em;
+}
+
+.ribbon-corner, .ribbon-bookmark-v, .ribbon-bookmark-h {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}

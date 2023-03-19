@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrabble scores - Mauro Montenegro Guzmán</title>
+    <meta property="og:title" content="Mauro Montenegro Guzmán - Portfolio">
+    <!-- Description -->
+    <meta name="description"
+        content="I'm Mauro Montenegro Guzmán and I'm a full stack web developer and an advanced industrial engineering student.">
+    <meta property="og:description"
+        content="I'm Mauro Montenegro Guzmán and I'm a full stack web developer and an advanced industrial engineering student.">
+    <!-- Favicon -->
+    <link
+        href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAREREAAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAASAAACARAAARIgAAIhEAABEiAAAiEQAAESIAACIRAAARIgAAIhEBEBEiAiAiERERESIiIiIRERERIiIiIgEQARACIAIgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AAC+fQAAPDwAADw8AAA8PAAAPDwAACQkAAAAAAAAAAAAAJmZAAD//wAA//8AAP//AAD//wAA"
+        rel="icon" type="image/x-icon" />
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!--<link rel="stylesheet" type="text/css" href="../style.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <!-- CUSTOM CSS -->
+    <link rel='stylesheet' type='text/css' media='screen' href='scrabble.css'>
+    <!-- Meta tags -->
+    <meta name="googlebot" content="notranslate">
+    <meta name="keywords" content="HTML, CSS, Java, trainee, web developer, Mauro Montenegro Guzmán, junior, python">
+    <!-- WhatsApp og image (square)-->
+    <meta property="og:image" content="https://mauromontenegro.github.io/thumbnail.png">
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:type" content="image/png">
+    <!-- Facebook og image (rectangular) -->
+    <meta property="og:image" content="https://mauromontenegro.github.io/thumbnail-1200-630.png">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png">
+    <!-- Linkedin og image (rectangular) -->
+    <meta property="og:image" content="https://mauromontenegro.github.io/thumbnail-1200-627.png">
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta property="og:image:type" content="image/png">
+    <!--/ Meta tags-->
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- CUSTOM JS -->
+    <script src='scrabble.js'></script>
+</head>
+
+<body class="h-auto pb-3">
+    <!-- Starter Modal -->
+    <div class="modal fade" id="starter-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card text-dark bg-modal border-0 rounded">
+                <div class="modal-header justify-content-center">
+                    <!-- Modal title sm -->
+                    <h5 class="modal-title d-block d-md-none">
+                        <span class="text-uppercase">
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">S</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">C</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">R</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">A</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">L</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">E</span>
+                        </span>
+                    </h5>
+                    <!-- Modal title md -->
+                    <h4 class="modal-title d-none d-md-block">
+                        <span class="text-uppercase">
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">S</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">C</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">R</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">A</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">L</span>
+                            <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">E</span>
+                        </span>
+                    </h4>
+                </div>
+                <div class="modal-body px-4">
+                    <p>A continuación, ingrese el nombre de cada jugador para esta partida (mínimo 2) en el orden
+                        sorteado para jugar.</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="playerOneNameStarter" class="form-label">Jugador N° 1:</label>
+                            <input type="text" class="form-control border-brown" id="playerOneNameStarter">
+                        </div>
+                        <div class="mb-3">
+                            <label for="playerTwoNameStarter" class="form-label">Jugador N° 2:</label>
+                            <input type="text" class="form-control border-brown" id="playerTwoNameStarter">
+                        </div>
+                        <div class="mb-3">
+                            <label for="playerThreeNameStarter" class="form-label">Jugador N° 3:</label>
+                            <input type="text" class="form-control border-brown" id="playerThreeNameStarter">
+                        </div>
+                        <div class="mb-3">
+                            <label for="playerFourNameStarter" class="form-label">Jugador N° 4:</label>
+                            <input type="text" class="form-control border-brown" id="playerFourNameStarter">
+                        </div>
+                    </form>
+                    <div id="alertDangerStarter" class="alert alert-danger" role="alert" style="display: none;">
+                        <i class="bi-x-circle-fill me-1"></i>Debe registrar al menos dos jugadores en la partida.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-brown text-white" id="btn-submit-starter"
+                        onclick="javascript: submitPlayers();">¡Comenzar!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="display:none;">
+        <!-- Page title sm -->
+        <h3 class="title text-center fw-bold my-2 d-block d-md-none">
+            <span class="text-uppercase">
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">S</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">C</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">R</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">A</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">L</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">E</span>
+            </span>
+        </h3>
+        <!-- Page title md -->
+        <h1 class="title text-center fw-bold my-2 d-none d-md-block">
+            <span class="text-uppercase">
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">S</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">C</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">R</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">A</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">B</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">L</span>
+                <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">E</span>
+            </span>
+        </h1>
+
+        <!-- Row start game button -->
+        <div class="row justify-content-center my-4">
+            <div class="col-auto text-center">
+                <!-- Button start game -->
+                <button id="start-game-btn" type="button" class="btn btn-success shadow-sm mb-2" onclick="startGame();"
+                    style="display: none;"><i class="bi-play-circle small me-2"></i>
+                    ¡Comenzar juego!
+                </button>
+                <!-- Button edit players modal -->
+                <button id="edit-players-btn" type="button" class="btn btn-primary shadow-sm mb-2"
+                    onclick="editPlayers();" style="display: none;"><i class="bi-pencil-square small me-2"></i>
+                    Editar jugadores
+                </button>
+                <!-- Button end game -->
+                <button id="end-game-btn" type="button" class="btn btn-danger shadow-sm mb-2" onclick="endGame();"
+                    style="display: none;"><i class="bi-check-circle small me-2"></i>
+                    ¡Finalizar juego!
+                </button>
+                <!-- Button restart game -->
+                <button id="restart-game-btn" type="button" class="btn btn-warning shadow-sm mb-2"
+                    onclick="location.reload();" style="display: none;"><i
+                        class="bi-arrow-counterclockwise small me-2"></i>
+                    Reiniciar juego
+                </button>
+            </div>
+        </div>
+
+        <!-- Row current player -->
+        <div id="current-player-row" class="row mb-4 g-0 justify-content-center" style="display: none;">
+            <!-- Row title sm -->
+            <small class="mb-0 d-inline d-md-none text-center">
+                <span class="text-uppercase">
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">T</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">U</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">R</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">N</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">O</span><br/>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">A</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">C</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">T</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">U</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">A</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1 ">L</span>
+                </span>
+            </small>
+            <!-- Row title md -->
+            <h4 class="mb-0 d-none d-md-inline ps-2">
+                <span class="text-uppercase">
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">T</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">U</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">R</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">N</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-4">O</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">A</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">C</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">T</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">U</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">A</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">L</span>
+                </span>
+            </h4>
+            <div id="current-player-container" class="row row-cols-1 row-cols-md-2 g-2"></div>
+        </div>
+
+        <!-- Row players list -->
+        <div class="row mb-2 g-0 justify-content-center">
+            <!-- Row title sm -->
+            <small class="mb-0 d-inline d-md-none text-center">
+                <span class="card-title text-uppercase text-center">
+                    <span class="players-size badge text-dark rounded bg-white border border-brown p-1 px-2 me-2">4</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">j</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">u</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">g</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">a</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">d</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">o</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">r</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">e</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">s</span><br/>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">r</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">e</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">g</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">i</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">s</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">t</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">r</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">a</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">d</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">o</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">s</span>
+                </span>
+            </small>
+            <!-- Row title md -->
+            <h4 class="mb-0 d-none d-md-inline ps-2">
+                <span class="card-title me-1 text-uppercase">
+                    <span class="players-size badge text-dark rounded bg-white border border-brown p-1 px-2 me-4">0</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">j</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">u</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">g</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">a</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">d</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">o</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">r</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">e</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-4">s</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">r</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">e</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">g</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">i</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">s</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">t</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">r</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">a</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">d</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2 me-1">o</span>
+                    <span class="badge text-dark rounded bg-white border border-brown p-1 px-2">s</span>
+                </span>
+            </h4>
+            <div id="player-card-container" class="row row-cols-1 row-cols-md-2 g-2">
+
+            </div>
+        </div>
+
+        <!-- Player Card -->
+        <div id="player-card" class="col d-none" data-id="">
+            <div class="card h-100 bg-card-gradient text-dark border-brown shadow-sm my-2">
+                <div class="ribbon-winner ribbon-corner ribbon-fold ribbon-lg bg-success d-none">
+                    <small>¡GANADOR!</small></div>
+                <div class="card-body">
+                    <h5 class="mb-2"><span class="card-title me-1 text-uppercase"></span></h5>
+                    <h6 class="badge bg-light border border-secondary text-dark fw-light mb-2">
+                        <i class="bi-person-fill small me-1"></i>
+                        <span class="card-subtitle">Card subtitle</span>
+                    </h6>
+                    <p class="card-text">Some quick example text.</p>
+                    <div class="text-center text-wrap">
+                        <a href="javascript:void(0);" class="word-detail-btn btn btn-brown fw-light text-white mb-1">
+                            <i class="bi-eye small me-1"></i>
+                            <small>Detalles</small>
+                        </a>
+                        <a href="javascript:void(0);" class="skip-btn btn btn-brown fw-light text-white mb-1 d-none">
+                            <i class="bi-chevron-double-right small me-1"></i>
+                            <small>Pasar turno</small>
+                        </a>
+                        <a href="javascript:void(0);"
+                            class="add-word-btn btn btn-brown fw-light text-white mb-1 d-none">
+                            <i class="bi-plus small me-1"></i>
+                            <small>Agregar palabra</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add word Modal -->
+        <div class="modal fade" id="add-word-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="add-word-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content card text-dark bg-modal border-0 rounded">
+                    <div class="modal-header bg-brown text-white">
+                        <h5 class="modal-title" id="add-word-modal-label">Agregar palabra</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="word-literal" class="form-label">Palabra:</label>
+                                <input type="text" class="form-control border-brown" id="word-literal">
+                            </div>
+                            <div class="mb-3">
+                                <label for="word-points" class="form-label">Puntos totales:</label>
+                                <input type="text" class="form-control border-brown" id="word-points">
+                            </div>
+                            <div class="mb-3">
+                                <label for="word-position" class="form-label">Coordenadas:</label>
+                                <input type="text" class="form-control border-brown" id="word-position">
+                            </div>
+                            <div class="mb-3">
+                                <label for="word-letters" class="form-label">Cantidad de letras utilizadas:</label>
+                                <input type="text" class="form-control border-brown" id="word-letters">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-brown text-white" data-bs-dismiss="modal"
+                            aria-label="Close">Cerrar</button>
+                        <button type="button" class="btn btn-brown text-white" id="btn-submit-word"
+                            onclick="javascript:void(0);">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View details Modal -->
+        <div class="modal fade" id="details-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="details-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content card text-dark bg-modal border-0 rounded">
+                    <div class="modal-header bg-brown text-white">
+                        <h5 class="modal-title" id="details-modal-label">Ver detalles del jugador <span><b
+                                    class="player-name"></b></span></h5>
+
+                    </div>
+                    <div class="modal-body">
+                        <p class="player-details"></p>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Palabra (letras)</th>
+                                    <th scope="col">Puntos</th>
+                                    <th scope="col">Coordenadas</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-brown text-white" data-bs-dismiss="modal"
+                            aria-label="Close">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- End game Modal -->
+        <div class="modal fade" id="end-game-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="end-game-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content card text-dark bg-modal border-0 rounded">
+                    <div class="modal-header bg-brown text-white">
+                        <h5 class="modal-title" id="end-game-modal-label">Finalizar Scrabble</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>A continuación, ingrese los puntos a sumar / restar para cada jugador (0 en caso de que no
+                            sea necesario):</p>
+                        <form></form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-brown text-white" id="btn-submit-starter"
+                            onclick="javascript: submitLastPoints();">¡Finalizar!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- BOOTSTRAP JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
