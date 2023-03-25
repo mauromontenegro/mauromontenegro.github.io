@@ -107,7 +107,7 @@ function renderPlayerCard(player) {
   card
     .find(".card-text")
     .html(
-      '<ul class="list-unstyled fs-6 px-3"><li class="my-1"><i class="bi-stars me-2"></i><b>' + player["points"] + '</b> Puntos</li><li class="my-1"><i class="bi-spellcheck me-2"></i><b>' + player["words"].length + '</b> Palabras</li><li class="my-1"><i class="bi-clipboard-data me-2"></i><b>' + player["average"] + '</b> Puntos por palabra</li></ul>'
+      '<ul class="list-unstyled fs-6 px-3"><li class="my-1 card-points"><i class="bi-stars me-2"></i><b>' + player["points"] + '</b> Puntos</li><li class="my-1"><i class="bi-spellcheck me-2"></i><b>' + player["words"].length + '</b> Palabras</li><li class="my-1 card-points"><i class="bi-clipboard-data me-2"></i><b>' + player["average"] + '</b> Puntos por palabra</li></ul>'
     );
   // Bind botón "Ver detalles"
   card.find(".word-detail-btn").attr("onclick", "viewDetails(" + player["id"] + ");");
@@ -115,6 +115,8 @@ function renderPlayerCard(player) {
   card.find(".skip-btn").attr("onclick", "skipTurn(" + player["id"] + ");");
   // Bind botón "Agregar palabra"
   card.find(".add-word-btn").attr("onclick", "addWord(" + player["id"] + ");");
+  // Muestro/oculto puntos
+  toggleCardPoints();
   // Muestro al jugador
   card.removeClass("d-none");
 }
@@ -238,7 +240,7 @@ function submitWord(id) {
   player["points"] = player["points"] + points;
   let words = player["words"];
   let wordId = words.length + 1;
-  words.push(createWord(wordId, word, points, letters, position));
+  words.push(createWord(wordId, word, points, letters, position.toUpperCase()));
   // Recalculo promedio
   player["average"] = parseFloat(player["points"] / words.length).toFixed(2);
   // Actualizo jugador
@@ -333,6 +335,8 @@ function showFinalResults() {
       $('#player-card-' + player["id"]).find('.ribbon-winner').removeClass('d-none');
     }
   }
+  // Muestro los puntos de cada jugador
+  $('.card-points').show();
   // Oculto botón para terminar juego
   $('#end-game-btn').hide();
   // Cierro modal para puntos finales
@@ -344,8 +348,8 @@ function viewDetails(id) {
   $('#details-modal').find('.player-name').text(player["name"]);
   let words = player["words"];
   // Detalle textual
-  let details = 'Ha jugado ' + words.length + ' palabras, acumulando ' + player["points"] + ' puntos en esta partida.';
-  $('#details-modal').find('.player-details').text(details);
+  let details = 'Ha jugado <b>' + words.length + ' palabras</b>, acumulando <b>' + player["points"] + ' puntos</b> en esta partida, con un promedio de <b>' + player["average"] + ' puntos por palabra</b>.';
+  $('#details-modal').find('.player-details').html(details);
   // Creo la tabla con el detalle de cada palabra
   let table = $('#details-modal .table');
   table.find('tbody').html('');
@@ -361,4 +365,17 @@ function viewDetails(id) {
   }
   table.find('tbody').html(body);
   $('#details-modal').modal('show');
+}
+
+function saveConfiguration() {
+  toggleCardPoints();
+  $('#configuration-modal').modal('hide');
+}
+
+function toggleCardPoints() {
+  if (document.getElementById("check-hide-points").checked) {
+    $(".card-points").hide();
+  } else {
+    $(".card-points").show();
+  }
 }
