@@ -84,22 +84,22 @@
                 <div class="modal-body px-4">
                     <p>A continuación, ingrese el nombre de cada jugador para esta partida (mínimo 2) en el orden
                         sorteado para jugar.</p>
-                    <form>
+                    <form autocomplete="off">
                         <div class="mb-3">
                             <label for="playerOneNameStarter" class="form-label">Jugador N° 1:</label>
-                            <input type="text" class="form-control border-brown" id="playerOneNameStarter">
+                            <input type="text" class="form-control border-brown" id="playerOneNameStarter" autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label for="playerTwoNameStarter" class="form-label">Jugador N° 2:</label>
-                            <input type="text" class="form-control border-brown" id="playerTwoNameStarter">
+                            <input type="text" class="form-control border-brown" id="playerTwoNameStarter" autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label for="playerThreeNameStarter" class="form-label">Jugador N° 3:</label>
-                            <input type="text" class="form-control border-brown" id="playerThreeNameStarter">
+                            <input type="text" class="form-control border-brown" id="playerThreeNameStarter" autocomplete="off">
                         </div>
                         <div class="mb-3">
                             <label for="playerFourNameStarter" class="form-label">Jugador N° 4:</label>
-                            <input type="text" class="form-control border-brown" id="playerFourNameStarter">
+                            <input type="text" class="form-control border-brown" id="playerFourNameStarter" autocomplete="off">
                         </div>
                     </form>
                     <div id="alertDangerStarter" class="alert alert-danger" role="alert" style="display: none;">
@@ -311,30 +311,54 @@
                         <h5 class="modal-title" id="add-word-modal-label">Agregar palabra</h5>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form autocomplete="off">
                             <div class="mb-3">
                                 <label for="word-literal" class="form-label">Palabra:</label>
-                                <input type="text" class="form-control border-brown" id="word-literal">
+                                <input type="text" class="form-control border-brown" id="word-literal" autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="word-points" class="form-label">Puntos totales:</label>
-                                <input type="text" class="form-control border-brown" id="word-points">
+                                <input type="number" class="form-control border-brown" id="word-points" autocomplete="off">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3 game-position">
                                 <label for="word-position" class="form-label">Coordenadas:</label>
-                                <input type="text" class="form-control border-brown" id="word-position">
+                                <input type="text" class="form-control border-brown" id="word-position" autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="word-letters" class="form-label">Cantidad de letras utilizadas:</label>
-                                <input type="text" class="form-control border-brown" id="word-letters">
+                                <input type="number" class="form-control border-brown" id="word-letters" autocomplete="off">
                             </div>
                         </form>
+                        <div id="alertDangerAddWord" class="alert alert-danger" role="alert" style="display: none;">
+                            <i class="bi-x-circle-fill me-1"></i>Debe ingresar al menos la palabra y los puntos de la jugada.
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-brown text-white" data-bs-dismiss="modal"
                             aria-label="Close">Cerrar</button>
                         <button type="button" class="btn btn-brown text-white" id="btn-submit-word"
                             onclick="javascript:void(0);">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skip turn confirmation Modal -->
+        <div class="modal fade" id="skip-turn-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="skip-turn-modal-label" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content card text-dark bg-modal border-0 rounded">
+                    <div class="modal-header bg-brown text-white">
+                        <h5 class="modal-title" id="skip-turn-modal-label">Confirmar acción</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 text-center">
+                            <p>¿Seguro que desea pasar el turno?</p>
+                            <button type="button" class="btn btn-brown text-white mx-1" id="btn-skip-turn"
+                                onclick="javascript:void(0);">Si</button>
+                            <button type="button" class="btn btn-brown text-white mx-1" data-bs-dismiss="modal"
+                                aria-label="Close">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,16 +372,16 @@
                     <div class="modal-header bg-brown text-white">
                         <h5 class="modal-title" id="details-modal-label">Ver detalles de <span><b
                                     class="player-name"></b></span></h5>
-
                     </div>
                     <div class="modal-body">
                         <p class="player-details"></p>
                         <table class="table table-sm table-striped table-bordered border-secondary">
-                            <thead>
+                            <caption id="no-words-caption" class="ms-1"><small>No hay palabras</small></caption>
+                            <thead class="table-dark">
                                 <tr>
                                     <th scope="col">Palabra (letras)</th>
-                                    <th scope="col">Puntos</th>
-                                    <th scope="col">Coordenadas</th>
+                                    <th scope="col" class="game-points">Puntos</th>
+                                    <th scope="col" class="game-position">Coordenadas</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -404,8 +428,12 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-3 form-check">
-                            <label for="check-hide-points" class="form-check-label">Ocultar puntos en tarjeta de jugador:</label>
+                            <label for="check-hide-points" class="form-check-label">Ocultar puntos de cada jugador hasta el final de la partida.</label>
                             <input class="form-check-input" type="checkbox" name="check-hide-points" id="check-hide-points">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <label for="check-hide-position" class="form-check-label">No utilizar coordenadas en esta partida.</label>
+                            <input class="form-check-input" type="checkbox" name="check-hide-position" id="check-hide-position">
                         </div>
                     </form>
                 </div>
@@ -413,7 +441,7 @@
                     <button type="button" class="btn btn-brown text-white" data-bs-dismiss="modal"
                         aria-label="Close">Cerrar</button>
                     <button type="button" class="btn btn-brown text-white" id="btn-save-configuration"
-                        onclick="javascript:saveConfiguration();">Guardar</button>
+                        onclick="javascript:updateConfiguration();">Guardar</button>
                 </div>
             </div>
         </div>

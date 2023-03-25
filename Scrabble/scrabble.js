@@ -42,17 +42,17 @@ function validatePlayersSize() {
   let isStarterValid = false;
   players = [];
   if (playerOneName !== "") {
-    players.push(createPlayer(1, playerOneName));
+    players.push(createPlayer(players.length + 1, playerOneName));
     currentPlayerId = 1;
   }
   if (playerTwoName !== "") {
-    players.push(createPlayer(2, playerTwoName));
+    players.push(createPlayer(players.length + 1, playerTwoName));
   }
   if (playerThreeName !== "") {
-    players.push(createPlayer(3, playerThreeName));
+    players.push(createPlayer(players.length + 1, playerThreeName));
   }
   if (playerFourName !== "") {
-    players.push(createPlayer(4, playerFourName));
+    players.push(createPlayer(players.length + 1, playerFourName));
   }
 
   if (players.length < 2) {
@@ -79,7 +79,7 @@ function createPlayer(id, name) {
     + '<input type="number" class="form-control border-brown" id="player-' + id + '-last-points" value="0"></div>';
   form.append(div);
   // Creación del jugador
-  return { id: id, name: name, points: 0, words: [], average: 0 };
+  return { id: id, name: name, points: 0, words: [], average: 0, skipped: 0 };
 }
 
 /**
@@ -107,16 +107,21 @@ function renderPlayerCard(player) {
   card
     .find(".card-text")
     .html(
-      '<ul class="list-unstyled fs-6 px-3"><li class="my-1 card-points"><i class="bi-stars me-2"></i><b>' + player["points"] + '</b> Puntos</li><li class="my-1"><i class="bi-spellcheck me-2"></i><b>' + player["words"].length + '</b> Palabras</li><li class="my-1 card-points"><i class="bi-clipboard-data me-2"></i><b>' + player["average"] + '</b> Puntos por palabra</li></ul>'
+      '<ul class="list-unstyled fs-6 px-3">'
+        +'<li class="my-1 game-points"><i class="bi-stars me-2"></i><b>' + player["points"] + '</b> Puntos</li>'
+        +'<li class="my-1"><i class="bi-spellcheck me-2"></i><b>' + player["words"].length + '</b> Palabras</li>'
+        +'<li class="my-1"><i class="bi-chevron-double-right me-2"></i><b>' + player["skipped"] + '</b> Turnos pasados</li>'
+        +'<li class="my-1 game-points"><i class="bi-clipboard-data me-2"></i><b>' + player["average"] + '</b> Puntos por palabra</li>'
+      +'</ul>'
     );
   // Bind botón "Ver detalles"
   card.find(".word-detail-btn").attr("onclick", "viewDetails(" + player["id"] + ");");
   // Bind botón "Pasar turno"
-  card.find(".skip-btn").attr("onclick", "skipTurn(" + player["id"] + ");");
+  card.find(".skip-btn").attr("onclick", "skipTurnModal(" + player["id"] + ");");
   // Bind botón "Agregar palabra"
   card.find(".add-word-btn").attr("onclick", "addWord(" + player["id"] + ");");
-  // Muestro/oculto puntos
-  toggleCardPoints();
+  // Muestro/oculto según configuración
+  updateConfiguration();
   // Muestro al jugador
   card.removeClass("d-none");
 }
@@ -207,10 +212,29 @@ function toggleCurrentPlayer(id) {
 }
 
 /**
+ * Abre el modal de confirmación para pasar de turno
+ * @param id
+ */
+function skipTurnModal(id) {
+  // Bind botón "Sí"
+  $('#btn-skip-turn').attr('onclick', 'skipTurn(' + id + ');');
+  // Muestro el modal de confirmación
+  $('#skip-turn-modal').modal('show');
+}
+
+/**
  * Jugador pasa de turno
  * @param id
  */
-function skipTurn(id) {
+ function skipTurn(id) {
+  // Actualizo el contador
+  let player = players[id-1];
+  player["skipped"] = player["skipped"] + 1;
+  // Actualizo jugador
+  renderPlayerCard(player);
+  // Oculto el modal de confirmación
+  $('#skip-turn-modal').modal('hide');
+  // Se pasa de turno
   toggleCurrentPlayer(id);
 }
 
@@ -230,23 +254,30 @@ function addWord(id) {
  * @param id
  */
 function submitWord(id) {
+  // Oculto alerta
+  $('#alertDangerAddWord').hide();
   // Valores del formulario
   let word = $("#word-literal").val();
   let points = parseInt($("#word-points").val());
-  let letters = $("#word-letters").val();
-  let position = $("#word-position").val();
-  // Jugador actual
-  let player = players[id - 1];
-  player["points"] = player["points"] + points;
-  let words = player["words"];
-  let wordId = words.length + 1;
-  words.push(createWord(wordId, word, points, letters, position.toUpperCase()));
-  // Recalculo promedio
-  player["average"] = parseFloat(player["points"] / words.length).toFixed(2);
-  // Actualizo jugador
-  renderPlayerCard(player);
-  // Cambio de turno
-  toggleCurrentPlayer(id);
+  if (word !== "" && !isNaN(points)) {
+    let letters = $("#word-letters").val();
+    let position = $("#word-position").val();
+    // Jugador actual
+    let player = players[id - 1];
+    player["points"] = player["points"] + points;
+    let words = player["words"];
+    let wordId = words.length + 1;
+    words.push(createWord(wordId, word.trim().toUpperCase(), points, letters, position.toUpperCase()));
+    // Recalculo promedio
+    player["average"] = parseFloat(player["points"] / words.length).toFixed(2);
+    // Actualizo jugador
+    renderPlayerCard(player);
+    // Cambio de turno
+    toggleCurrentPlayer(id);
+  } else {
+    // Muestro alerta
+    $('#alertDangerAddWord').show();
+  }
 }
 
 /**
@@ -298,13 +329,7 @@ function submitLastPoints() {
     let input = $("#player-" + player["id"] + "-last-points");
     if (input) {
       let value = input.val();
-      if (value.indexOf("-") !== -1) {
-        // Se restan
-        player["points"] = player["points"] - parseInt(value.slice(1));
-      } else {
-        // Se suman
-        player["points"] = player["points"] + parseInt(value);
-      }
+      player["points"] = player["points"] + parseInt(value);
     }
     console.log(
       "Puntos del Jugador N°" + player["id"] + ": " + player["points"]
@@ -313,6 +338,9 @@ function submitLastPoints() {
   showFinalResults();
 }
 
+/**
+ * Muestra el resultado final de la partida
+ */
 function showFinalResults() {
   // Ordeno la lista de jugadores por puntos
   var finalPlayers = players.sort(function (a, b) {
@@ -336,46 +364,78 @@ function showFinalResults() {
     }
   }
   // Muestro los puntos de cada jugador
-  $('.card-points').show();
-  // Oculto botón para terminar juego
+  $('.game-points').show();
+  // Oculto botón para terminar juego y de cofiguración
   $('#end-game-btn').hide();
+  $('#configuration-game-btn').hide();
   // Cierro modal para puntos finales
   $("#end-game-modal").modal("hide");
 }
 
+/**
+ * Modal con detalles de la partida de un jugador
+ * @param id 
+ */
 function viewDetails(id) {
+  // Oculto caption
+  $('#no-words-caption').hide();
+  // Busco al jugador
   let player = players[id-1];
   $('#details-modal').find('.player-name').text(player["name"]);
   let words = player["words"];
   // Detalle textual
-  let details = 'Ha jugado <b>' + words.length + ' palabras</b>, acumulando <b>' + player["points"] + ' puntos</b> en esta partida, con un promedio de <b>' + player["average"] + ' puntos por palabra</b>.';
+  let details = 'Ha jugado <b>' + words.length + ' palabras</b><span class="game-points">, acumulando <b>' + player["points"] + ' puntos</b> en esta partida, con un promedio de <b>' + player["average"] + ' puntos por palabra</b></span>.';
   $('#details-modal').find('.player-details').html(details);
   // Creo la tabla con el detalle de cada palabra
   let table = $('#details-modal .table');
   table.find('tbody').html('');
   let body = '';
-  for (let i = 0; i < words.length; i++) {
+  if (words.length > 0) {
+    for (let i = 0; i < words.length; i++) {
     let word= words[i];
     body += '<tr>'
-              //+ '<th scope="row">' + word["id"] + '</th>'
               + '<td>' + word["word"] + ' (' + word["letters"] + ')</td>'
-              + '<td>' + word["points"] + '</td>'
-              + '<td>' + word["position"] + '</td>'
-              +'</tr>'
+              + '<td class="game-points">' + word["points"] + '</td>'
+              + '<td class="game-position">' + word["position"] + '</td>'
+            +'</tr>'
+    }
+  } else {
+    $('#no-words-caption').show();
   }
   table.find('tbody').html(body);
+  // Muestro/oculto según configuración
+  updateConfiguration();
+  // Muestro el modal
   $('#details-modal').modal('show');
 }
 
-function saveConfiguration() {
-  toggleCardPoints();
+/**
+ * Guardo la configuración del juego
+ */
+function updateConfiguration() {
+  // Muestro/oculto los puntos
+  toggleGamePoints();
+  // Muestro/oculto coordenadas
+  toggleGamePositions();
+  // Cierro el modal de configuración
   $('#configuration-modal').modal('hide');
 }
 
-function toggleCardPoints() {
+/**
+ * Función para mostrar/ocultar puntos
+ */
+function toggleGamePoints() {
   if (document.getElementById("check-hide-points").checked) {
-    $(".card-points").hide();
+    $(".game-points").hide();
   } else {
-    $(".card-points").show();
+    $(".game-points").show();
+  }
+}
+
+function toggleGamePositions() {
+  if (document.getElementById("check-hide-position").checked) {
+    $(".game-position").hide();
+  } else {
+    $(".game-position").show();
   }
 }
