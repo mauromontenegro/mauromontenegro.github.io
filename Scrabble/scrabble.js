@@ -8,6 +8,7 @@ var playerThreeName = "";
 var playerFourName = "";
 var players = [];
 var currentPlayerId = 0;
+var remLetters = 100;
 
 /**
  * Se ejcuta al clickear el botón del modal starter
@@ -29,6 +30,8 @@ function submitPlayers() {
     $("#start-game-btn").show();
     // Muestra el botón para editar jugadores
     $("#edit-players-btn").show();
+    // Muestro la cantidad de letras restantes
+    updateRemainingLetters();
     // Muestra el container
     $('.container').show();
   }
@@ -78,6 +81,8 @@ function createPlayer(id, name) {
     + '<label for="player-' + id + '-last-points" class="form-label">Jugador N° ' + id + ' (' + name + '):</label>'
     + '<input type="number" class="form-control border-brown" id="player-' + id + '-last-points" value="0"></div>';
   form.append(div);
+  // Resto las 7 letras del jugador
+  remLetters -= 7;
   // Creación del jugador
   return { id: id, name: name, points: 0, words: [], average: 0, skipped: 0 };
 }
@@ -272,6 +277,9 @@ function submitWord(id) {
     player["average"] = parseFloat(player["points"] / words.length).toFixed(2);
     // Actualizo jugador
     renderPlayerCard(player);
+    // Actualizo y muestro la cantidad de letras restantes
+    remLetters -= letters;
+    updateRemainingLetters();
     // Cambio de turno
     toggleCurrentPlayer(id);
   } else {
@@ -417,6 +425,8 @@ function updateConfiguration() {
   toggleGamePoints();
   // Muestro/oculto coordenadas
   toggleGamePositions();
+  // Muestro/oculto coordenadas
+  toggleGameLetters();
   // Cierro el modal de configuración
   $('#configuration-modal').modal('hide');
 }
@@ -432,10 +442,40 @@ function toggleGamePoints() {
   }
 }
 
+/**
+ * Función para mostrar/ocultar coordenadas
+ */
 function toggleGamePositions() {
   if (document.getElementById("check-hide-position").checked) {
     $(".game-position").hide();
   } else {
     $(".game-position").show();
   }
+}
+
+/**
+ * Función para mostrar/ocultar letras restantes
+ */
+function toggleGameLetters() {
+  if (document.getElementById("check-hide-letters").checked) {
+    $(".game-letters").hide();
+  } else {
+    $(".game-letters").show();
+  }
+}
+
+/**
+ * Renderiza el html con la cantidad de letras restantes
+ */
+function updateRemainingLetters() {
+  let htmlLetters = '';
+  let strLetters = remLetters.toString();
+  if (remLetters > 0) {
+    for (let i = 0; i < strLetters.length; i++) {
+      htmlLetters += '<span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">' + strLetters[i] + '</span>';
+    }  
+  } else {
+    htmlLetters += '<span class="badge text-dark rounded bg-white border border-brown p-1 px-2 mb-1">0</span>';
+  }
+  $('.letters-size').html(htmlLetters);
 }
