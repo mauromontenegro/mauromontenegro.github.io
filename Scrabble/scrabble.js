@@ -84,7 +84,7 @@ function createPlayer(id, name) {
   // Resto las 7 letras del jugador
   remLetters -= 7;
   // Creación del jugador
-  return { id: id, name: name, points: 0, words: [], average: 0, skipped: 0 };
+  return { id: id, name: name, points: 0, words: [], average: 0, skipped: 0, difference: '' };
 }
 
 /**
@@ -97,6 +97,10 @@ function renderPlayers() {
   }
 }
 
+/**
+ * Renderiza la carta del jugador
+ * @param {*} player 
+ */
 function renderPlayerCard(player) {
   // Player card
   let card = $("#player-card-" + player["id"]);
@@ -131,6 +135,9 @@ function renderPlayerCard(player) {
   card.removeClass("d-none");
 }
 
+/**
+ * Renderiza el nombre del jugador con el estilo Scrabble
+ */
 function renderPlayerName(name) {
   let htmlName = '';
   for (var i = 0; i < name.length; i++) {
@@ -233,7 +240,7 @@ function skipTurnModal(id) {
  */
  function skipTurn(id) {
   // Actualizo el contador
-  let player = players[id-1];
+  let player = findPlayerById(id);
   player["skipped"] = player["skipped"] + 1;
   // Actualizo jugador
   renderPlayerCard(player);
@@ -268,7 +275,7 @@ function submitWord(id) {
     let letters = $("#word-letters").val();
     let position = $("#word-position").val();
     // Jugador actual
-    let player = players[id - 1];
+    let player = findPlayerById(id);
     player["points"] = player["points"] + points;
     let words = player["words"];
     let wordId = words.length + 1;
@@ -338,6 +345,12 @@ function submitLastPoints() {
     if (input) {
       let value = input.val();
       player["points"] = player["points"] + parseInt(value);
+      // Guardo los puntos de diferencia del jugador
+      let operation = 'sumaron';
+      if (parseInt(value) < 0) {
+        operation = 'restaron';
+      }
+      player["difference"] = 'Se <b>' + operation + ' ' + Math.abs(parseInt(value)) + ' puntos</b> al finalizar la partida.';
     }
     console.log(
       "Puntos del Jugador N°" + player["id"] + ": " + player["points"]
@@ -351,7 +364,7 @@ function submitLastPoints() {
  */
 function showFinalResults() {
   // Ordeno la lista de jugadores por puntos
-  var finalPlayers = players.sort(function (a, b) {
+  players = players.sort(function (a, b) {
     if (a.points > b.points) {
       return -1;
     }
@@ -360,12 +373,12 @@ function showFinalResults() {
     }
     return 0;
   });
-  let max = finalPlayers[0]["points"];
+  let max = players[0]["points"];
   console.log('Puntos máximos: ' + max);
   // Pinto nuevamente los jugadores con puntos actualizados
   $("#player-card-container").html("");
-  for (let i = 0; i < finalPlayers.length; i++) {
-    let player = finalPlayers[i];
+  for (let i = 0; i < players.length; i++) {
+    let player = players[i];
     renderPlayerCard(player);
     if (max !== 0 && player["points"] === max) {
       $('#player-card-' + player["id"]).find('.ribbon-winner').removeClass('d-none');
@@ -388,7 +401,7 @@ function viewDetails(id) {
   // Oculto caption
   $('#no-words-caption').hide();
   // Busco al jugador
-  let player = players[id-1];
+  let player = findPlayerById(id);
   $('#details-modal').find('.player-name').text(player["name"]);
   let words = player["words"];
   // Detalle textual
@@ -410,11 +423,23 @@ function viewDetails(id) {
   } else {
     $('#no-words-caption').show();
   }
+  if(player["difference"] !== '') {
+    body += '<tr><td colspan="3">' + player["difference"] + '</td></tr>';
+  }
   table.find('tbody').html(body);
   // Muestro/oculto según configuración
   updateConfiguration();
   // Muestro el modal
   $('#details-modal').modal('show');
+}
+
+/**
+ * Busca un jugador por id
+ * @param {*} id 
+ * @returns 
+ */
+function findPlayerById(id) {
+  return players.find(x => x.id === id);
 }
 
 /**
