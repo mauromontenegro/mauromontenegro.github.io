@@ -2,6 +2,16 @@ $(document).ready(function () {
   $("#starter-modal").modal("show");
 });
 
+/**
+ * Para prevenir que se actualice por accidente la página
+ */
+window.addEventListener('beforeunload', (event) => {
+  // Cancel the event as stated by the standard.
+  event.preventDefault();
+  // Chrome requires returnValue to be set.
+  event.returnValue = '';
+});
+
 var playerOneName = "";
 var playerTwoName = "";
 var playerThreeName = "";
@@ -9,6 +19,7 @@ var playerFourName = "";
 var players = [];
 var currentPlayerId = 0;
 var remLetters = 100;
+var isGameEnded = false;
 
 /**
  * Se ejcuta al clickear el botón del modal starter
@@ -321,6 +332,8 @@ function clearAddWordModal() {
  * Finaliza el juego. Abre modale para finalizar juego
  */
 function endGame() {
+  // Seteo variable global de juego terminado
+  isGameEnded = true;
   // Abro modal para puntos finales
   $("#end-game-modal").modal("show");
   // Oculto fila de jugador actual
@@ -343,7 +356,7 @@ function submitLastPoints() {
     let player = players[i];
     let input = $("#player-" + player["id"] + "-last-points");
     if (input) {
-      let value = input.val();
+      let value = (input.val() !== '') ? input.val() : 0;
       player["points"] = player["points"] + parseInt(value);
       // Guardo los puntos de diferencia del jugador
       let operation = 'sumaron';
@@ -446,14 +459,17 @@ function findPlayerById(id) {
  * Guardo la configuración del juego
  */
 function updateConfiguration() {
-  // Muestro/oculto los puntos
-  toggleGamePoints();
+  if (!isGameEnded) {
+    // Muestro/oculto los puntos
+    toggleGamePoints();
+  }
   // Muestro/oculto coordenadas
   toggleGamePositions();
   // Muestro/oculto coordenadas
   toggleGameLetters();
   // Cierro el modal de configuración
   $('#configuration-modal').modal('hide');
+  
 }
 
 /**
